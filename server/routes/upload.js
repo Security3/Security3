@@ -4,6 +4,7 @@
 var fs = require('fs');
 var walk = require('walk');
 var crypto = require('crypto');
+var targetGenerator = require('../utils/targetGenerator');
 
 var db = [];
 exports.db = db;
@@ -17,11 +18,20 @@ exports.upload = function(req, res){
 
 		var hashedSig = crypto.createHmac('sha256', "Security3")
                        .update(data)
-                       .digest('base64');
-    		console.log(hashedSig);
-		var nuHash = {fileName:req.files.file.name,hash:hashedSig};
-		db.push(nuHash);
-		console.log(db);
+                       .digest('hex');
+		console.log(hashedSig);
+		if(db.length < 1) {
+			var nuHash = {fileName:req.files.file.name,hash:hashedSig,lastBlock:targetGenerator.generateTarget(),timestamp:new Date().getMilliseconds(),nonce:""};
+			db.push(nuHash);
+			targetGenerator.solveTarget(nuHash.lastBlock, db.length-1);
+			console.log(db);
+		} else {
+			var nuHash = {fileName:req.files.file.name,hash:hashedSig,lastBlock:db[db.length-1].hash,timestamp:new Date().getMilliseconds(),nonce:""};
+			db.push(nuHash);
+			targetGenerator.solveTarget(nuHash.lastBlock, db.length-1);
+			console.log(db);
+		}
+
   		fs.writeFile(newPath, data, function (err) {
     			res.send("ok");
   		});
@@ -78,6 +88,25 @@ function findHash(fileName) {
 	return index;
 }
 
+exports.findBlock = findBlock;
+
+function findBlock(hash) {
+	console.log('In findHash for: ' + hash);
+	var index = null;
+	console.log("Current db.length: " + db.length);
+	for(var i = 0; i < db.length; i++) {
+		console.log('Current set: ' + db[i].fileName + ";" + db[i].hash);
+		if(db[i].hash === hash) {
+			console.log('Found set: ' + db[i].fileName + ";" + db[i].hash);
+			index = i;
+			console.log('Breaking...');
+			break;
+		}
+	}
+	console.log('Returning: ' + index);
+	return index;
+}
+
 exports.refreshDb = refreshDb;
 
 function refreshDb() {
@@ -90,7 +119,7 @@ function refreshDb() {
 		fs.readFile(root + stat.name, function (err, data) {
 			var hashedSig = crypto.createHmac('sha256', "Security3")
 				.update(data)
-				.digest('base64');
+				.digest('hex');
 			var nuHash = {fileName:fileName,hash:hashedSig};
 			db.push(nuHash);
 			next();
@@ -102,6 +131,12 @@ function refreshDb() {
 	walker.on('end', function() {
 		console.log(db);
 	});
+};
+
+exports.addNonce = function(index, nonce) {
+	console.log(db.index);
+	console.log(db.length);
+	db[index].nonce=nonce;
 };
 
 //AngularJS post für SHA hashkey

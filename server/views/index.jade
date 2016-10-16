@@ -1,14 +1,16 @@
 <html ng-app="Security3Server">
 <head>
+<title>Security3</title>
 <link href="../stylesheets/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet"/>
 <link href="../stylesheets/bootstrap-3.3.7-dist/css/cover.css" rel="stylesheet"/>
+<link href="../stylesheets/style.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
 <script src="../stylesheets/Controller.js"></script>
 </head>
 <body>
 
-<div style="background-color: #111111; height:350px"><img style="height:350px" src="/img/header.jpg"></div>
+<div style="background-color: #58563f; height:175px; opacity:0.90; border-radius: 25px;"><img style="height:175px" src="/img/header.jpg"></div>
 
 <div class="container">
 <h1 class="cover-heading">HACKATHON</h1>
@@ -17,25 +19,31 @@
 </div>
 
 
-<div class="container">
+<div class="container-fluid" ng-controller="Controller">
 <div class="row">
-<div class="col-md-4" ng-controller="Controller"> 
-<h3>Pictures</h3>
-<div ng-repeat="image in imageList">
-<img  ng-src="{{image.link}}" style="margin: 5px; width: 30%">
-<div>Filename: {{image.fileName}}</div>
+<div class="col-md-4">
+<h2>Pictures</h2>
+<div ng-repeat="image in imageList" class="gallery-img">
+<a href="{{image.link}}"><img  ng-src="{{image.link}}" class="image"></a>
+<div>Hash: {{image.hash}}</div>
+</div>
+</div>
+<div class="col-md-4">
+<h2>Verification</h2>
+<div ng-repeat="image in verifyImageList" ng-class="image.integrity ? 'integer' : 'nonInteger'" class="gallery-img">
+<a href="{{image.link}}"><img  ng-src="{{image.link}}" class="image"></a>
 <div>Hash: {{image.hash}}</div>
 </div>
 </div>
 <div class="col-md-4"> 
-<h3>Verification</h3>
-<div class="col-md-6"> BILD </div>
-<div class="col-md-6"> BILD </div>
-</div>
-<div class="col-md-4"> 
-<h3>Blockchain</h3>
+<h2>Blockchain</h2>
+<div ng-repeat="block in blockChain" class="block">
+<div>Last Hash: {{block.lastBlock}}</div>
+<div>Image Hash: {{block.hash}}</div>
+<div>TimeStamp: {{block.timestamp}}</div>
+<div>Nonce: {{block.nonce}}</div>
 
-<p> hi</p>
+</div>
 </div>
 </div>
 </div>

@@ -6,3 +6,25 @@ body {
 a {
   color: #00B7FF;
 }
+.integer{
+  background-color: green;
+}
+.nonInteger{
+  background-color: red;
+}
+.gallery-img{
+  margin:5px;
+}
+.block {
+  background-color: #1b6d85;
+  margin-bottom: 15px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+.image {
+  margin: 5px;
+  height: 8%;
+}
+.side-bar {
+  border-right: 1px darkgrey solid;
+}
