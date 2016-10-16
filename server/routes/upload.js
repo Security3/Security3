@@ -21,12 +21,12 @@ exports.upload = function(req, res){
                        .digest('hex');
 		console.log(hashedSig);
 		if(db.length < 1) {
-			var nuHash = {fileName:req.files.file.name,hash:hashedSig,lastBlock:targetGenerator.generateTarget(),timestamp:new Date().getMilliseconds(),nonce:""};
+			var nuHash = {fileName:req.files.file.name,hash:hashedSig,lastBlock:targetGenerator.generateTarget(),timestamp:new Date().getMilliseconds(),nonce:"",blockHash:""};
 			db.push(nuHash);
 			targetGenerator.solveTarget(nuHash.lastBlock, db.length-1);
 			console.log(db);
 		} else {
-			var nuHash = {fileName:req.files.file.name,hash:hashedSig,lastBlock:db[db.length-1].hash,timestamp:new Date().getMilliseconds(),nonce:""};
+			var nuHash = {fileName:req.files.file.name,hash:hashedSig,lastBlock:db[db.length-1].blockHash,timestamp:new Date().getMilliseconds(),nonce:"",blockHash:""};
 			db.push(nuHash);
 			targetGenerator.solveTarget(nuHash.lastBlock, db.length-1);
 			console.log(db);
@@ -133,10 +133,12 @@ function refreshDb() {
 	});
 };
 
-exports.addNonce = function(index, nonce) {
-	console.log(db.index);
+exports.addNonce = function(index, nonce, blockHash) {
+	console.log(index);
 	console.log(db.length);
+	console.log(blockHash);
 	db[index].nonce=nonce;
+	db[index].blockHash=blockHash;
 };
 
 //AngularJS post für SHA hashkey

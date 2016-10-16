@@ -20,6 +20,8 @@ a {
   margin-bottom: 15px;
   padding-top:20px;
   padding-bottom:20px;
+    text-align: left !important;
+    padding-left: 15px;
 }
 .image {
   margin: 5px;
