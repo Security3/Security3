@@ -48,7 +48,7 @@ function solveTarget(hash, index){
             if(compareHashes(hashedSig,hash) === -1) {
                 //todo
                 console.log(hashedSig);
-                upload.addNonce(index,nonce);
+                upload.addNonce(index,nonce,hashedSig);
             } else {
                 solveTarget(hash, index);
             }
