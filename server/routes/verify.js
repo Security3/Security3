@@ -10,7 +10,7 @@ exports.verify = function(req, res){
 
 		var hashedSig = crypto.createHmac('sha256', "Security3")
                        .update(data)
-                       .digest('base64');
+                       .digest('hex');
     		console.log(hashedSig);
 		console.log(upload.db);
 		fs.writeFile(newPath, data, function (err) {
@@ -27,15 +27,20 @@ exports.list = function(req, res){
 		// Add this file to the list of files
 		var fileName = root + stat.name;
 		console.log(fileName);
-		console.log('Searching hash for: ' + stat.name);
 		fs.readFile(fileName, function (err, data) {
 			console.log(err);
 			console.log(data);
 			var hashedSig = crypto.createHmac('sha256', "Security3")
 				.update(data)
-				.digest('base64');
-
-			var fileJSO = {link:fileName,fileName:stat.name,hash:hashedSig};
+				.digest('hex');
+			fileName = fileName.replace('./public','http://52.211.100.116');
+			var integrity = false;
+			var block = null;
+			if (upload.findBlock(hashedSig) !== null) {
+				integrity = true;
+				block = upload.findBlock(hashedSig);
+			}
+			var fileJSO = {link:fileName,fileName:stat.name,hash:hashedSig,integrity:integrity,block:block};
 			files.push(fileJSO);
 			next();
 		});

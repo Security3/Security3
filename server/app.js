@@ -10,6 +10,7 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , verify = require('./routes/verify')
+  , blockchain = require('./routes/blockchain')
   , walk = require('walk')
   , fs = require('fs')
   , crypto = require('crypto');
@@ -42,6 +43,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/upload', upload.list);
 app.get('/verify', verify.list);
+app.get('/blockchain', blockchain.list);
 
 app.post('/upload', upload.upload);
 app.post('/verify', verify.verify);

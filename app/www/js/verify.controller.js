@@ -9,8 +9,9 @@
     function onUploadSuccess() {
       alert('upload successful');
     }
-    function onUploadFail() {
+    function onUploadFail(err) {
       alert('upload failed');
+      console.log(err);
     }
     var vm = this;
     vm.upload = function () {
