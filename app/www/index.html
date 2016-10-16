@@ -28,13 +28,17 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
+    <script src="js/ng-cordova.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
+    <script src="js/app.config.js"></script>
+    <script src="js/app.filter.js"></script>
+    <script src="js/upload.controller.js"></script>
+    <script src="js/verify.controller.js"></script>
     <script src="js/services.js"></script>
   </head>
-  <body ng-app="starter">
+  <body ng-app="Security3">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
@@ -43,7 +47,7 @@
       </ion-nav-back-button>
     </ion-nav-bar>
     <!--
-      The views will be rendered in the <ion-nav-view> directive below
+      The views will be rendered in the <ion-nav-view> directive belo
       Templates are in the /templates folder (but you could also
       have templates inline in this html file if you'd like).
     -->

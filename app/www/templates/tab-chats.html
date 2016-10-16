@@ -1,16 +1,11 @@
-<ion-view view-title="Chats">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+<ion-view view-title="Security3 - Verify">
+    <ion-content class="padding">
+      <img ng-src="{{VerifyController.imageSrc | noPicture}}" style="width:100%"/>
+      <button class="button button-block button-dark" ng-click="VerifyController.select()">
+        <i class="icon ion-search"></i>
+      </button>
+      <button class="button button-block button-dark" ng-disabled="!VerifyController.imageSrc" ng-click="VerifyController.upload()">
+        <i class="icon ion-upload"></i>
+      </button>
+    </ion-content>
 </ion-view>

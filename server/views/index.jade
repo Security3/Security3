@@ -1,0 +1,50 @@
+<html ng-app="Security3Server">
+<head>
+<link href="../stylesheets/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet"/>
+<link href="../stylesheets/bootstrap-3.3.7-dist/css/cover.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+<script src="../stylesheets/Controller.js"></script>
+</head>
+<body>
+
+<div style="background-color: #111111; height:350px"><img style="height:350px" src="/img/header.jpg"></div>
+
+<div class="container">
+<h1 class="cover-heading">HACKATHON</h1>
+<p class="lead">Your low cost home secutiry kit powered by Blockchain</p>
+<p class="lead"><a href="#" class="btn btn-lg btn-secondary">Your Dashboard</a></p>
+</div>
+
+
+<div class="container">
+<div class="row">
+<div class="col-md-4" ng-controller="Controller"> 
+<h3>Pictures</h3>
+<div ng-repeat="image in imageList">
+<img  ng-src="{{image.link}}" style="margin: 5px; width: 30%">
+<div>Filename: {{image.fileName}}</div>
+<div>Hash: {{image.hash}}</div>
+</div>
+</div>
+<div class="col-md-4"> 
+<h3>Verification</h3>
+<div class="col-md-6"> BILD </div>
+<div class="col-md-6"> BILD </div>
+</div>
+<div class="col-md-4"> 
+<h3>Blockchain</h3>
+
+<p> hi</p>
+</div>
+</div>
+</div>
+
+<div >
+
+</div>
+
+
+ 
+</body>
+</html>
